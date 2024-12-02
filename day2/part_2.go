@@ -69,9 +69,9 @@ func main() {
 
 func findAllUnsafe(numbers []string) []int {
 	var unsafe []int
-	numLeft, _ := strconv.Atoi(numbers[0])
-	numRight, _ := strconv.Atoi(numbers[1])
-	diff := numLeft - numRight
+	current, _ := strconv.Atoi(numbers[0])
+	next, _ := strconv.Atoi(numbers[1])
+	diff := current - next
 	var path bool
 
 	if diff < 0 {
@@ -82,11 +82,14 @@ func findAllUnsafe(numbers []string) []int {
 
 	for index, number := range numbers {
 		if index != len(numbers)-1 {
-			numLeft, _ := strconv.Atoi(number)
-			numRight, _ := strconv.Atoi(numbers[index+1])
-			diff := numLeft - numRight
+			current, _ = strconv.Atoi(number)
+			next, _ = strconv.Atoi(numbers[index+1])
+			diff = current - next
 
-			if diff > 0 && path || diff < 0 && !path || math.Abs(float64(diff)) == 0 || math.Abs(float64(diff)) > 3 {
+			if diff > 0 && path ||
+				diff < 0 && !path ||
+				diff == 0 ||
+				math.Abs(float64(diff)) > 3 {
 				unsafe = append(unsafe, index)
 			}
 		}

@@ -20,7 +20,7 @@ func main() {
 	scanner := bufio.NewReader(file)
 
 	var result = 0
-	
+
 	for line, err := scanner.ReadString('\n'); err == nil; line, err = scanner.ReadString('\n') {
 		if isSafe(strings.TrimSpace(line)) {
 			result++
@@ -32,9 +32,9 @@ func main() {
 
 func isSafe(row string) bool {
 	numbers := strings.Split(row, " ")
-	numLeft, _ := strconv.Atoi(numbers[0])
-	numRight, _ := strconv.Atoi(numbers[1])
-	diff := numLeft - numRight
+	current, _ := strconv.Atoi(numbers[0])
+	next, _ := strconv.Atoi(numbers[1])
+	diff := current - next
 	var path bool
 
 	if diff < 0 {
@@ -45,11 +45,14 @@ func isSafe(row string) bool {
 
 	for index, number := range numbers {
 		if index != len(numbers)-1 {
-			numLeft, _ := strconv.Atoi(number)
-			numRight, _ := strconv.Atoi(numbers[index+1])
-			diff := numLeft - numRight
+			current, _ = strconv.Atoi(number)
+			next, _ = strconv.Atoi(numbers[index+1])
+			diff = current - next
 
-			if diff > 0 && path || diff < 0 && !path || diff == 0 || math.Abs(float64(diff)) > 3 {
+			if diff > 0 && path ||
+				diff < 0 && !path ||
+				diff == 0 ||
+				math.Abs(float64(diff)) > 3 {
 				return false
 			}
 		}
