@@ -1,34 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"log"
-	"os"
-	"strconv"
-	"strings"
 )
 
-func main() {
-	file, err := os.Open("./input")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewReader(file)
-
-	var result = 0
-	var left []int
-	var right []int
-
-	for line, err := scanner.ReadString('\n'); err == nil; line, err = scanner.ReadString('\n') {
-		row := strings.Split(strings.TrimSpace(line), "   ")
-		numLeft, _ := strconv.Atoi(row[0])
-		numRight, _ := strconv.Atoi(row[1])
-		left = append(left, numLeft)
-		right = append(right, numRight)
-	}
+func Part2() {
+	result = 0.0
 
 	for _, v := range left {
 		count := 0
@@ -37,8 +14,8 @@ func main() {
 				count++
 			}
 		}
-		result += count * v
+		result += float64(count * v)
 	}
 
-	fmt.Println(result)
+	fmt.Println("Result for part 2: ", int(result))
 }
